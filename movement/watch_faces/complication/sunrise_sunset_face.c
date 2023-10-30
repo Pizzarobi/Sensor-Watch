@@ -79,7 +79,7 @@ static void _sunrise_sunset_face_update(movement_settings_t *settings, sunrise_s
             watch_clear_colon();
             watch_clear_indicator(WATCH_INDICATOR_PM);
             watch_clear_indicator(WATCH_INDICATOR_24H);
-            sprintf(buf, "%s%2d none ", (result == 1) ? "SE" : "rI", scratch_time.unit.day);
+            sprintf(buf, "%s%2d none ", (result == 1) ? "SA" : "SU", scratch_time.unit.day);
             watch_display_string(buf, 0);
             return;
         }
@@ -109,7 +109,7 @@ static void _sunrise_sunset_face_update(movement_settings_t *settings, sunrise_s
                     if (watch_utility_convert_to_12_hour(&scratch_time)) watch_set_indicator(WATCH_INDICATOR_PM);
                     else watch_clear_indicator(WATCH_INDICATOR_PM);
                 }
-                sprintf(buf, "rI%2d%2d%02d  ", scratch_time.unit.day, scratch_time.unit.hour, scratch_time.unit.minute);
+                sprintf(buf, "SA%2d%2d%02d  ", scratch_time.unit.day, scratch_time.unit.hour, scratch_time.unit.minute);
                 watch_display_string(buf, 0);
                 return;
             } else {
@@ -136,7 +136,7 @@ static void _sunrise_sunset_face_update(movement_settings_t *settings, sunrise_s
                     if (watch_utility_convert_to_12_hour(&scratch_time)) watch_set_indicator(WATCH_INDICATOR_PM);
                     else watch_clear_indicator(WATCH_INDICATOR_PM);
                 }
-                sprintf(buf, "SE%2d%2d%02d  ", scratch_time.unit.day, scratch_time.unit.hour, scratch_time.unit.minute);
+                sprintf(buf, "SU%2d%2d%02d  ", scratch_time.unit.day, scratch_time.unit.hour, scratch_time.unit.minute);
                 watch_display_string(buf, 0);
                 return;
             } else {
@@ -288,6 +288,10 @@ void sunrise_sunset_face_setup(movement_settings_t *settings, uint8_t watch_face
         *context_ptr = malloc(sizeof(sunrise_sunset_state_t));
         memset(*context_ptr, 0, sizeof(sunrise_sunset_state_t));
     }
+    movement_location_t ingolstadt_loc;
+    ingolstadt_loc.bit.latitude = 4876;
+    ingolstadt_loc.bit.longitude = 1142;
+    watch_store_backup_data(ingolstadt_loc.reg,1);
 }
 
 void sunrise_sunset_face_activate(movement_settings_t *settings, void *context) {

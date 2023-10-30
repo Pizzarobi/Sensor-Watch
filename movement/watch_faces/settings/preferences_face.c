@@ -45,6 +45,7 @@ void preferences_face_setup(movement_settings_t *settings, uint8_t watch_face_in
     (void) settings;
     (void) watch_face_index;
     if (*context_ptr == NULL) *context_ptr = malloc(sizeof(uint8_t));
+    settings->bit.clock_mode_24h = 1;
 }
 
 void preferences_face_activate(movement_settings_t *settings, void *context) {

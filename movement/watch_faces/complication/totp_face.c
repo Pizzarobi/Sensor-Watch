@@ -30,8 +30,8 @@ static const uint32_t timesteps[] = {
     30,
 };
 static const char labels[][2] = {
-    { '2', 'F' },
-    { 'A', 'C' },
+    { 'G', 'H' },
+    { 'P', 'A' },
 };
 static const hmac_alg algorithms[] = {
     SHA1,
