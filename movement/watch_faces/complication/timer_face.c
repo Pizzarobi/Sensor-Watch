@@ -22,15 +22,13 @@
  * SOFTWARE.
  */
 
-//-----------------------------------------------------------------------------
-
 #include <stdlib.h>
 #include <string.h>
 #include "timer_face.h"
 #include "watch.h"
 #include "watch_utility.h"
 
-static const uint16_t _default_timer_values[] = {0x200, 0x500, 0x700, 0xB00, 0x1E00, 0x0001}; // default timers: 2 min, 5 min, 10 min, 20 min, 2 h 45 min
+static const uint16_t _default_timer_values[] = {0x200, 0x500, 0x700, 0xB00, 0x1E00, 0x0001}; // default timers: 2 min, 5 min, 7 min, 10 min, 20 min, 2 h 45 min
 // sound sequence for a single beeping sequence
 static const int8_t _sound_seq_beep[] = {BUZZER_NOTE_C8, 3, BUZZER_NOTE_REST, 3, -2, 2, BUZZER_NOTE_C8, 5, BUZZER_NOTE_REST, 25, 0};
 static const int8_t _sound_seq_start[] = {BUZZER_NOTE_C8, 2, 0};
@@ -198,7 +196,7 @@ void timer_face_setup(movement_settings_t *settings, uint8_t watch_face_index, v
         timer_state_t *state = (timer_state_t *)*context_ptr;
         memset(*context_ptr, 0, sizeof(timer_state_t));
         state->watch_face_index = watch_face_index;
-        for (uint8_t i = 0; i < sizeof(_default_timer_values) / sizeof(uint16_t); i++) {
+        for (uint8_t i = 0; i < sizeof(_default_timer_values) / sizeof(uint32_t); i++) {
             state->timers[i].value = _default_timer_values[i];
         }
     }
