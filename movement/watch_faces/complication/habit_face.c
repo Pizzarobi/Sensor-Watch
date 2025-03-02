@@ -115,38 +115,44 @@ bool habit_face_loop(movement_event_t event, movement_settings_t *settings,
   const bool can_do = (state->lookback & 1) == 0;
 
   switch (event.event_type) {
-  case EVENT_ACTIVATE:
-  case EVENT_TICK: {
-    display_state(state);
-    if (today_now_unix > state->last_update) {
-      uint8_t num_shifts = days_since_unix(state->last_update, today_now_unix);
-      if (num_shifts > 7)
-        num_shifts = 7;
-      state->lookback <<= num_shifts;
-      state->last_update = today_now_unix;
-    }
-    break;
-  }
-  case EVENT_LIGHT_BUTTON_UP: {
-    state->display_total = !state->display_total;
-    display_state(state);
-    break;
-  }
-  case EVENT_ALARM_BUTTON_UP: {
-    if (can_do) {
-      state->lookback |= 1;
-      state->total_count++;
-      state->last_update = today_now_unix;
+    case EVENT_ACTIVATE:
+    case EVENT_TICK: {
       display_state(state);
-    };
-    break;
-  }
-  case EVENT_TIMEOUT: {
-    movement_move_to_face(0);
-    break;
-  }
-  default:
-    return movement_default_loop_handler(event, settings);
+      if (today_now_unix > state->last_update) {
+        uint8_t num_shifts = days_since_unix(state->last_update, today_now_unix);
+        if (num_shifts > 7)
+          num_shifts = 7;
+        state->lookback <<= num_shifts;
+        state->last_update = today_now_unix;
+      }
+      break;
+    }
+    case EVENT_LIGHT_BUTTON_UP: {
+      state->display_total = !state->display_total;
+      display_state(state);
+      break;
+    }
+    case EVENT_ALARM_BUTTON_UP: {
+      if (can_do) {
+        state->lookback |= 1;
+        state->total_count++;
+        state->last_update = today_now_unix;
+        display_state(state);
+      }else
+      {
+        state->lookback &= 0;
+        state->total_count--;
+        state->last_update = today_now_unix;
+        display_state(state);
+      }
+      break;
+    }
+    case EVENT_TIMEOUT: {
+      movement_move_to_face(0);
+      break;
+    }
+    default:
+      return movement_default_loop_handler(event, settings);
   }
   return true;
 }

@@ -76,6 +76,15 @@ void set_time_face_setup(movement_settings_t *settings, uint8_t watch_face_index
     (void) settings;
     (void) watch_face_index;
     if (*context_ptr == NULL) *context_ptr = malloc(sizeof(uint8_t));
+
+    // watch_date_time latest_time;
+    // latest_time.unit.year = 3;
+    // latest_time.unit.month = 10;
+    // latest_time.unit.day = 31;
+    // latest_time.unit.hour = 10;
+    // latest_time.unit.minute = 0;
+    // latest_time.unit.second = 0;
+    // watch_rtc_set_date_time(latest_time);
 }
 
 void set_time_face_activate(movement_settings_t *settings, void *context) {

@@ -70,6 +70,11 @@ int main(void) {
     watch_date_time date_time = watch_rtc_get_date_time();
     if (date_time.reg == 0) {
         date_time.unit.year = 3;
+        date_time.unit.month = 10;
+        date_time.unit.day = 31;
+        date_time.unit.hour = 10;
+        date_time.unit.minute = 0;
+        date_time.unit.second = 0;
         watch_rtc_set_date_time(date_time);
     }
 
